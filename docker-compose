@@ -61,7 +61,8 @@ services:
       - 443:443
     restart: unless-stopped
 # run docker via local image (Create previously via Dockerfile)
-  image: root/jenkins
+  jenkins:
+    image: root/jenkins
     container_name: jenkins-pi
     environment:
       - PUID=1000
