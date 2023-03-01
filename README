@@ -10,6 +10,7 @@ services what I've used:
 - cadvisor (for prometheus)
 - prometheus
 - grafana
+- samba
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Grafana tips:
 use Grafana dashboard
