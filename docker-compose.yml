@@ -47,14 +47,6 @@ services:
       - "9000:9000"
       - "8000:8000"
     restart: unless-stopped
-# portainer-agent for prometheus
-  portainer-agent:
-    image: portainer/agent:2.17.0 # Replace 2.11.0 with the latest version, will be math with main portainer version
-    container_name: portainer-agent-pi
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/volumes:/var/lib/docker/volumes
-    restart: unless-stopped
 #heimdall
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest

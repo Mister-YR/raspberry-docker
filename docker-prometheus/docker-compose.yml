@@ -14,21 +14,24 @@ services:
       - "9090:9090"
     volumes:
       - /etc/prometheus:/etc/prometheus
-      - prometheus-data:/prometheus
+      - /prometheus-data:/prometheus
     restart: unless-stopped
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
-
+# if your have error in contaiber log ~'/var/lib/grafana/plugins': Permission denied
+# id -u
+# sudo chown -R 1000:1000 /prometheus-data/
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
       - "3000:3000"
     volumes:
-      - grafana-data:/var/lib/grafana
+      - /grafana-data:/var/lib/grafana
+    user: "1000"
     restart: unless-stopped
 
-  # node exporter for prometheus
+# node exporter for prometheus
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
     container_name: node_exporter-pi
@@ -52,4 +55,12 @@ services:
       - /etc/machine-id:/etc/machine-id:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+    restart: unless-stopped
+# portainer-agent for prometheus
+  portainer-agent:
+    image: portainer/agent:2.17.0 # Replace 2.11.0 with the latest version, will be math with main portainer version
+    container_name: portainer-agent-pi
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
     restart: unless-stopped
