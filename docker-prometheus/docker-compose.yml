@@ -40,6 +40,11 @@ services:
     volumes:
       - '/:/host:ro,rslave'
     restart: unless-stopped
+#for correct ram monitoring on raspberry pi 4
+#sudo nano /boot/cmdline.txt
+#// add at the end of the line:
+#cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1
+#// save file
 # cAdvisor for prometheus
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.0
