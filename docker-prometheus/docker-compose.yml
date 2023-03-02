@@ -43,19 +43,22 @@ services:
 #for correct ram monitoring on raspberry pi 4
 #sudo nano /boot/cmdline.txt
 #// add at the end of the line:
-#cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1
+# cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1
 #// save file
 # cAdvisor for prometheus
   cadvisor:
+#    image: gcr.io/cadvisor/cadvisor:v0.47.0
+#    image: zcube/cadvisor:latest
     image: gcr.io/cadvisor/cadvisor-arm64:v0.46.0
     container_name: cadvisor-pi
     privileged: true
     stdin_open: true
     tty: true
+#    privileged: true
     command:
       - "--housekeeping_interval=30s"
-#      - "--docker_only=true"
-#      - "--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,accelerator,hugetlb,referenced_memory,cpu_topology,resctrl"
+      - "--docker_only=true"
+      - "--disable_metrics=percpu,sched,tcp,udp,accelerator,hugetlb,referenced_memory,cpu_topology,resctrl"
     ports:
       - 8080:8080
     volumes:
@@ -72,7 +75,7 @@ services:
     restart: unless-stopped
 # portainer-agent for prometheus
   portainer-agent:
-    image: portainer/agent:2.17.0 # Replace 2.11.0 with the latest version, will be math with main portainer version
+    image: portainer/agent:2.17.1 # Replace 2.11.0 with the latest version, will be math with main portainer version
     container_name: portainer-agent-pi
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
