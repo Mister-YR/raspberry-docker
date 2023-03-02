@@ -47,18 +47,28 @@ services:
 #// save file
 # cAdvisor for prometheus
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    image: gcr.io/cadvisor/cadvisor-arm64:v0.46.0
     container_name: cadvisor-pi
     privileged: true
+    stdin_open: true
+    tty: true
+    command:
+      - "--housekeeping_interval=30s"
+#      - "--docker_only=true"
+#      - "--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,accelerator,hugetlb,referenced_memory,cpu_topology,resctrl"
     ports:
       - 8080:8080
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
-      - /etc/machine-id:/etc/machine-id:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+      - /etc/machine-id:/etc/machine-id:ro
+      - /proc/cgroups:/cgroup:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 # portainer-agent for prometheus
   portainer-agent:
