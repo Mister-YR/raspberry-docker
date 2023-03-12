@@ -11,6 +11,7 @@ services what I've used:
 - prometheus
 - grafana
 - samba
+- scrutiny (for hdd-smart monitoring)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Grafana tips:
 use Grafana dashboard
