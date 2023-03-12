@@ -26,3 +26,5 @@ services:
       - SCRUTINY_COLLECTOR=true
       - TZ=Europe/Kyiv
     restart: unless-stopped
+#Manual run update scrutiny on first start
+#docker-compose run --rm scrutiny-pi scrutiny-collector-metrics run

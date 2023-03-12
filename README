@@ -19,3 +19,8 @@ https://grafana.com/grafana/dashboards/13946-docker-cadvisor/
 id - 13946
 Works well with cAdvisor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Manual run update scrutiny on first start
+docker-compose run --rm scrutiny-pi scrutiny-collector-metrics run
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
